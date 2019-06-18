@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Top.unity
     guid: 07ed3f236f9158643b12b6d2ffad19eb
   - enabled: 1
+    path: Assets/Scenes/BLETest.unity
+    guid: 03753d56c7d3f8f40b9d20794bea2a5e
+  - enabled: 1
     path: Assets/Scenes/GyroShooting.unity
     guid: 68fac821c855b8141a74571637cfb057
   m_configObjects: {}
