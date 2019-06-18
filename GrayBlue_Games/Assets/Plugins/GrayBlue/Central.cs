@@ -47,7 +47,11 @@ namespace GrayBlue {
 
         public async Task<bool> ValidateAsync() {
 #if UNITY_EDITOR || UNITY_WEBGL
-            return await webSocketProxy.Open(context);
+            if (webSocketProxy.IsOpen) {
+                return await Task.FromResult(true);
+            } else {
+                return await webSocketProxy.Open(context);
+            }
 #else
             return await Task.FromResult(true);
 #endif

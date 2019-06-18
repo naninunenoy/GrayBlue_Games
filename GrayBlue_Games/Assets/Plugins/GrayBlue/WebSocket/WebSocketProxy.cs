@@ -17,6 +17,8 @@ namespace GrayBlue.WebSocket {
         private SynchronizationContext context;
         private TaskCompletionSource<bool> openTcs;
 
+        public bool IsOpen { private set; get; }
+
         public WebSocketProxy(string host, int port,
                               IConnectionDelegate connectDelegate, INotifyDelegate notifyDelegate) {
             URL = $"ws://{host}:{port}/";
@@ -38,6 +40,7 @@ namespace GrayBlue.WebSocket {
                 webSocket.ConnectAsync();
                 var result = await openTcs.Task;
                 openTcs = null;
+                IsOpen = true;
                 return result;
             } catch (Exception e) {
                 Debug.LogWarning(e);
@@ -55,6 +58,7 @@ namespace GrayBlue.WebSocket {
             webSocket.OnError -= OnWebSocketError;
             webSocket.OnClose -= OnWebSocketClose;
             webSocket.Close();
+            IsOpen = false;
         }
 
         public void Dispose() {
