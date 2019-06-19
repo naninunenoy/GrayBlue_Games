@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using GrayBlue;
 
 namespace GrayBlue_Games {
-    public abstract class GrayBlueGameScene : MonoBehaviour {
+    public abstract class GrayBlueGameSceneBase : MonoBehaviour {
         [SerializeField] protected Button backSceneButton = default;
 
         protected Central grayBlue = default;

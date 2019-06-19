@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GrayBlue_Games {
-    public class BLETestScene : GrayBlueGameScene {
+    public class BLETestScene : GrayBlueGameSceneBase {
         protected override void Awake() {
             base.Awake();    
         }
