@@ -60,7 +60,7 @@ namespace GrayBlue {
 #if UNITY_EDITOR || UNITY_WEBGL
             if (!IsWebSocketOpened) {
                 await webSocketProxy.Open(context);
-                IsWebSocketOpened = false;
+                IsWebSocketOpened = true;
             }
 #endif
             return await Task.FromResult(true);
