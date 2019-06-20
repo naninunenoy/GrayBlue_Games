@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GrayBlue_Games {
     public class BLETestScene : GrayBlueGameSceneBase {
         protected override void Awake() {
-            base.Awake();    
+            base.Awake();
         }
 
         async void Start() {

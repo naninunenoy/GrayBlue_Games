@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace GrayBlue_Games {
         protected Central grayBlue = default;
         protected IList<Peripheral> peripherals = default;
 
-        protected  virtual void Awake() {
+        protected virtual void Awake() {
             // 戻るボタン
             backSceneButton?.onClick.AddListener(() => {
                 SceneManager.LoadScene("Top");
