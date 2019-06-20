@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -10,8 +11,7 @@ namespace GrayBlue_Games {
     public abstract class GrayBlueGameSceneBase : MonoBehaviour {
         [SerializeField] protected Button backSceneButton = default;
 
-        protected Central grayBlue = default;
-        protected IList<Peripheral> peripherals = default;
+        protected Central grayBlueCentral = default;
 
         protected virtual void Awake() {
             // 戻るボタン
@@ -19,33 +19,42 @@ namespace GrayBlue_Games {
                 SceneManager.LoadScene("Top");
             });
             // GrayBlue取得
-            grayBlue = Central.Instance;
-            peripherals = new List<Peripheral>();
+            grayBlueCentral = Central.Instance;
         }
 
-        protected async virtual Task SetUpGrayBlueAsync() {
-            // GrayBlueの有効化
-            await grayBlue.ValidateAsync();
-            // スキャン
-            var deviceIds = await grayBlue.ScanAsync();
-            // 接続
-            if (deviceIds != null && deviceIds.Length > 0) {
-                foreach (var id in deviceIds) {
-                    var peripheral = await ConnectAsync(id);
-                    if (peripheral != null) {
-                        peripherals.Add(peripheral);
-                    }
-                }
+        protected async virtual Task<Peripheral> FindFirstGrayBlueAsync() {
+            if (grayBlueCentral.KnownDevices.Any()) {
+                // 接続済みデバイスがある場合はそれを基にして返す
+                var knownBleDevice = grayBlueCentral.KnownDevices.First();
+                return new Peripheral(knownBleDevice);
             }
-        }
-
-        async Task<Peripheral> ConnectAsync(string id) {
-            // Ble connect
-            var ble = new BLEDevice(id);
-            var success = await grayBlue.ConnectAsync(id, ble);
-            if (!success) {
+            // GrayBlueの有効化
+            var valid = await grayBlueCentral.ValidateAsync();
+            if (!valid) {
+                Debug.Log("GrayBlue validate failed");
                 return null;
             }
+            // スキャン
+            var deviceIds = await grayBlueCentral.ScanAsync();
+            // 接続
+            if (deviceIds == null || deviceIds.Length < 1) {
+                Debug.Log("GrayBlue not found");
+                return null;
+            }
+            Debug.Log($"GrayBlue found {deviceIds.Length} devices");
+            return await ConnectAsync(deviceIds[0]);
+        }
+
+        protected async Task<Peripheral> ConnectAsync(string id) {
+            // Ble connect
+            Debug.Log($"GrayBlue try connect. id={id}");
+            var ble = new BLEDevice(id);
+            var success = await grayBlueCentral.ConnectAsync(id, ble);
+            if (!success) {
+                Debug.Log($"GrayBlue connect failed. id={id}");
+                return null;
+            }
+            Debug.Log($"GrayBlue connect done. id={id}");
             return new Peripheral(ble);
         }
     }

@@ -9,8 +9,8 @@ namespace GrayBlue_Games {
             base.Awake();
         }
 
-        async void Start() {
-            await SetUpGrayBlueAsync();
+        void Start() {
+            //await SetUpGrayBlueAsync();
         }
     }
 }
