@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageText: {fileID: 847255586741218459}
+  displayImage: {fileID: 847255587128344597}
   buttonAImage: {fileID: 847255587501412538}
   buttonBImage: {fileID: 847255588019041349}
   buttonCImage: {fileID: 847255587104752610}

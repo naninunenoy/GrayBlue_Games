@@ -13,8 +13,8 @@ namespace GrayBlue_Games {
         protected override void Awake() {
             base.Awake();
             grayBlueButton?.onClick.AddListener(async () => {
-                if (!m5StackImage.HasPeripheral) {
-                    await BindM5StackImageAsync();
+                if (!m5StackImage.IsConnected) {
+                    await SearchAndSetM5StackAsync();
                 }
             });
             testSceneButton?.onClick.AddListener(() => {
@@ -26,22 +26,28 @@ namespace GrayBlue_Games {
         }
 
         private async void Start() {
-            await BindM5StackImageAsync();
+            await SearchAndSetM5StackAsync();
         }
 
         private void OnDestroy() {
             m5StackImage?.Peripheral?.UnlistenEvent();
         }
 
-        private async Task<bool> BindM5StackImageAsync() {
+        private async Task SearchAndSetM5StackAsync() {
+            m5StackImage.SetMessage("M5Stackを探しています");
+            var str = await BindM5StackImageAsync();
+            m5StackImage.SetMessage(str);
+        }
+
+        private async Task<string> BindM5StackImageAsync() {
             // GrayBlueを探す
             var grayBlue = await FindFirstGrayBlueAsync();
             if (grayBlue == null) {
-                return false; // 見つからなかった
+                return "みつかりませんでした";
             }
             m5StackImage.Peripheral = grayBlue;
             m5StackImage.Peripheral.ListenEvent();
-            return true;
+            return grayBlue.ID;
         }
     }
 }
