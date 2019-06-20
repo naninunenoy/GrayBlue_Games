@@ -6,10 +6,10 @@ using GrayBlue;
 
 namespace GrayBlue_Games {
     public class M5StackImage : MonoPeripheralBase {
-        [SerializeField] Text messageText;
-        [SerializeField] Image buttonAImage;
-        [SerializeField] Image buttonBImage;
-        [SerializeField] Image buttonCImage;
+        [SerializeField] Text messageText = default;
+        [SerializeField] Image buttonAImage = default;
+        [SerializeField] Image buttonBImage = default;
+        [SerializeField] Image buttonCImage = default;
 
         void Start() {
 

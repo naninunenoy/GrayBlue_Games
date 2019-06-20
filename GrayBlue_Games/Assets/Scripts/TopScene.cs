@@ -7,10 +7,10 @@ using GrayBlue;
 
 namespace GrayBlue_Games {
     public class TopScene : MonoBehaviour {
-        [SerializeField] Button grayBlueButton;
-        [SerializeField] M5StackImage m5StackImage;
-        [SerializeField] Button testSceneButton;
-        [SerializeField] Button shootingSceneButton;
+        [SerializeField] Button grayBlueButton = default;
+        [SerializeField] M5StackImage m5StackImage = default;
+        [SerializeField] Button testSceneButton = default;
+        [SerializeField] Button shootingSceneButton = default;
         Central grayBlue = default;
 
         void Awake() {
