@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using GrayBlue;
 
 namespace GrayBlue_Games {
-    public class M5StackImage : MonoPeripheralBase {
+    public class M5StackImage : MonoPeripheral {
         [SerializeField] Text messageText = default;
         [SerializeField] Image displayImage = default;
         [SerializeField] Image buttonAImage = default;
