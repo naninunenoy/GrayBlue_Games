@@ -27,7 +27,7 @@ namespace GrayBlueDemo {
             transform.rotation = Quaternion.Inverse(baseRotarion) * q;
         }
 
-        protected override void OnButtonPush(string button) {
+        protected override void OnButtonPush(ButtonType button) {
             // base pose reset
             baseRotarion = Quaternion.identity;
         }
