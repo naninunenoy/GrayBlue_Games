@@ -4,7 +4,7 @@ using UnityEngine;
 using GrayBlue;
 
 namespace GrayBlueDemo {
-    public class MonoPeripheralExample : MonoPeripheralBase {
+    public class MonoPeripheralExample : MonoPeripheral {
         Quaternion baseRotarion = Quaternion.identity;
 
         void OnDisable() {

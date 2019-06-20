@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GrayBlue {
-    public abstract class MonoPeripheralBase : MonoBehaviour {
+    public class MonoPeripheral : MonoBehaviour {
         Peripheral peripheral = default;
         public Peripheral Peripheral {
             set {
