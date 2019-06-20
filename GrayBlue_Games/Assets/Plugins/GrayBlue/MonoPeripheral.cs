@@ -20,6 +20,7 @@ namespace GrayBlue {
         public string PeripheralId { private set; get; } = string.Empty;
         public string RawPeripheralId { get => peripheral?.ID ?? string.Empty; }
         public bool HasPeripheral { get => !string.IsNullOrEmpty(RawPeripheralId); }
+        public bool IsConnected { get => peripheral?.IsConnected ?? false; }
 
         void AddListenner(Peripheral p) {
             if (p == null) {
