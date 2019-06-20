@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -16,8 +16,6 @@ namespace GrayBlue.WebSocket {
         private readonly RequestAgent requestAgent;
         private SynchronizationContext context;
         private TaskCompletionSource<bool> openTcs;
-
-        public bool IsOpen { private set; get; }
 
         public WebSocketProxy(string host, int port,
                               IConnectionDelegate connectDelegate, INotifyDelegate notifyDelegate) {
@@ -40,7 +38,6 @@ namespace GrayBlue.WebSocket {
                 webSocket.ConnectAsync();
                 var result = await openTcs.Task;
                 openTcs = null;
-                IsOpen = true;
                 return result;
             } catch (Exception e) {
                 Debug.LogWarning(e);
@@ -58,7 +55,6 @@ namespace GrayBlue.WebSocket {
             webSocket.OnError -= OnWebSocketError;
             webSocket.OnClose -= OnWebSocketClose;
             webSocket.Close();
-            IsOpen = false;
         }
 
         public void Dispose() {
@@ -148,4 +144,3 @@ namespace GrayBlue.WebSocket {
         }
     }
 }
-

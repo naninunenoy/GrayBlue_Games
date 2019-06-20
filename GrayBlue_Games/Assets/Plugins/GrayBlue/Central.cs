@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -47,11 +47,7 @@ namespace GrayBlue {
 
         public async Task<bool> ValidateAsync() {
 #if UNITY_EDITOR || UNITY_WEBGL
-            if (webSocketProxy.IsOpen) {
-                return await Task.FromResult(true);
-            } else {
-                return await webSocketProxy.Open(context);
-            }
+            return await webSocketProxy.Open(context);
 #else
             return await Task.FromResult(true);
 #endif
