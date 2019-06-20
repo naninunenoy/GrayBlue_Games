@@ -11,16 +11,27 @@ namespace GrayBlue {
     public class Central : MonoBehaviour, IConnectionDelegate, INotifyDelegate, IDisposable {
         private readonly IPlugin blePlugin = default;
         private readonly WebSocket.WebSocketProxy webSocketProxy;
-        private readonly IDictionary<string, IBLEDevice> bleLostDict;
+        private readonly IDictionary<string, IBLEDevice> bleConnectionDict;
         private readonly IDictionary<string, IIMUEventDelegate> sensorEventDict;
         private readonly IDictionary<string, IButtonEventDelegate> buttonEventDict;
         private SynchronizationContext context = default;
+        public bool IsWebSocketOpened { private set; get; } = false;
+        public IReadOnlyCollection<string> KnownDeviceIds {
+            get {
+                return new HashSet<string>(bleConnectionDict.Keys);
+            }
+        }
+        public IReadOnlyCollection<IBLEDevice> KnownDevices {
+            get {
+                return new HashSet<IBLEDevice>(bleConnectionDict.Values);
+            }
+        }
         private Central() {
             blePlugin = Plugin.Instance;
 #if UNITY_EDITOR || UNITY_WEBGL
             webSocketProxy = new WebSocket.WebSocketProxy("127.0.0.1", 12345, this, this);
 #endif
-            bleLostDict = new Dictionary<string, IBLEDevice>();
+            bleConnectionDict = new Dictionary<string, IBLEDevice>();
             sensorEventDict = new Dictionary<string, IIMUEventDelegate>();
             buttonEventDict = new Dictionary<string, IButtonEventDelegate>();
         }
@@ -47,18 +58,21 @@ namespace GrayBlue {
 
         public async Task<bool> ValidateAsync() {
 #if UNITY_EDITOR || UNITY_WEBGL
-            return await webSocketProxy.Open(context);
-#else
-            return await Task.FromResult(true);
+            if (!IsWebSocketOpened) {
+                await webSocketProxy.Open(context);
+                IsWebSocketOpened = false;
+            }
 #endif
+            return await Task.FromResult(true);
 
         }
 
         public void Dispose() {
 #if UNITY_EDITOR || UNITY_WEBGL
             webSocketProxy.Dispose();
+            IsWebSocketOpened = false;
 #endif
-            bleLostDict.Clear();
+            bleConnectionDict.Clear();
             sensorEventDict.Clear();
             buttonEventDict.Clear();
             blePlugin.Dispose();
@@ -86,8 +100,8 @@ namespace GrayBlue {
 #else
             var success = await blePlugin.ConnectTo(id, this, this).ConfigureAwait(false);
 #endif
-            if (success && !bleLostDict.ContainsKey(id)) {
-                bleLostDict.Add(id, device);
+            if (success && !bleConnectionDict.ContainsKey(id)) {
+                bleConnectionDict.Add(id, device);
             }
             return success;
         }
@@ -114,8 +128,8 @@ namespace GrayBlue {
         }
 
         public void RemoveListenner(string id) {
-            if (bleLostDict.ContainsKey(id)) {
-                bleLostDict.Remove(id);
+            if (bleConnectionDict.ContainsKey(id)) {
+                bleConnectionDict.Remove(id);
             }
             if (sensorEventDict.ContainsKey(id)) {
                 sensorEventDict.Remove(id);
@@ -134,8 +148,8 @@ namespace GrayBlue {
         }
 
         void IConnectionDelegate.OnConnectLost(string deviceId) {
-            if (bleLostDict.ContainsKey(deviceId)) {
-                bleLostDict[deviceId].NotifyConnectionLost();
+            if (bleConnectionDict.ContainsKey(deviceId)) {
+                bleConnectionDict[deviceId].NotifyConnectionLost();
                 RemoveListenner(deviceId);
             }
         }
