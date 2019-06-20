@@ -44,7 +44,7 @@ namespace GrayBlue {
     }
 
     public struct DeviceButton {
-        public string button;
+        public ButtonType button;
         public float pressTime;
     }
 

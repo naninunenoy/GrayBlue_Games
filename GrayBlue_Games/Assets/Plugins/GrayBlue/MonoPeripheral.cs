@@ -64,7 +64,7 @@ namespace GrayBlue {
         protected virtual void OnCompassUpdate(Vector3 mag) { }
         protected virtual void OnQuaternionUpdate(Quaternion quat) { }
         protected virtual void OnIMUSensorUpdate(IMUData imu) { }
-        protected virtual void OnButtonPush(string button) { }
-        protected virtual void OnButtonRelease(string button, float pressTime) { }
+        protected virtual void OnButtonPush(ButtonType button) { }
+        protected virtual void OnButtonRelease(ButtonType button, float pressTime) { }
     }
 }

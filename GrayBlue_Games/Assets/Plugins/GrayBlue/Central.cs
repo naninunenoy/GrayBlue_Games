@@ -175,7 +175,7 @@ namespace GrayBlue {
 
         void INotifyDelegate.OnButtonPush(string deviceId, string buttonName) {
             if (buttonEventDict.ContainsKey(deviceId)) {
-                var button = new DeviceButton { button = buttonName, pressTime = 0.0F };
+                var button = new DeviceButton { button = buttonName.ToButtonType(), pressTime = 0.0F };
                 context?.Post(_ => {
                     buttonEventDict[deviceId].NotifyButtonPush(button);
                 }, null);
@@ -184,7 +184,7 @@ namespace GrayBlue {
 
         void INotifyDelegate.OnButtonRelease(string deviceId, string buttonName, float pressTime) {
             if (buttonEventDict.ContainsKey(deviceId)) {
-                var button = new DeviceButton { button = buttonName, pressTime = pressTime };
+                var button = new DeviceButton { button = buttonName.ToButtonType(), pressTime = pressTime };
                 context?.Post(_ => {
                     buttonEventDict[deviceId].NotifyButtonRelease(button);
                 }, null);
