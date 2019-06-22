@@ -26,6 +26,7 @@ namespace GrayBlue_Games {
             if (grayBlueCentral.KnownDevices.Any()) {
                 // 接続済みデバイスがある場合はそれを基にして返す
                 var knownBleDevice = grayBlueCentral.KnownDevices.First();
+                Debug.Log($"device already exist {knownBleDevice.ID}");
                 return new Peripheral(knownBleDevice);
             }
             // GrayBlueの有効化

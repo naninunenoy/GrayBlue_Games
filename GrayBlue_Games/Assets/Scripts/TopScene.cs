@@ -29,10 +29,6 @@ namespace GrayBlue_Games {
             await SearchAndSetM5StackAsync();
         }
 
-        private void OnDestroy() {
-            m5StackImage?.Peripheral?.UnlistenEvent();
-        }
-
         private async Task SearchAndSetM5StackAsync() {
             m5StackImage.SetMessage("M5Stackを探しています");
             var str = await BindM5StackImageAsync();
