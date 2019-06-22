@@ -36,7 +36,7 @@ namespace GrayBlue {
         }
 
         public void ListenEvent() {
-            Central.Instance.AddListenner(ID, this, this);
+            Central.Instance.SetListenner(ID, this, this);
         }
 
         public void UnlistenEvent() {

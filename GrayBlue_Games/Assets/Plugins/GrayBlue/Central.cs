@@ -51,6 +51,7 @@ namespace GrayBlue {
             context = SynchronizationContext.Current;
             if (instance == null) {
                 instance = this;
+                DontDestroyOnLoad(instance);
             } else {
                 Destroy(gameObject);
             }
@@ -115,15 +116,23 @@ namespace GrayBlue {
             RemoveListenner(id);
         }
 
-        public void AddListenner(string id, IIMUEventDelegate imu, IButtonEventDelegate button) {
+        public void SetListenner(string id, IIMUEventDelegate imu, IButtonEventDelegate button) {
             if (string.IsNullOrEmpty(id)) {
                 return;
             }
-            if (!sensorEventDict.ContainsKey(id) && imu != null) {
-                sensorEventDict.Add(id, imu);
+            if (imu != null) {
+                if (sensorEventDict.ContainsKey(id)) {
+                    sensorEventDict[id] = imu; // update
+                } else {
+                    sensorEventDict.Add(id, imu); // new
+                }
             }
-            if (!buttonEventDict.ContainsKey(id) && button != null) {
-                buttonEventDict.Add(id, button);
+            if (button != null) {
+                if (buttonEventDict.ContainsKey(id)) {
+                    buttonEventDict[id] = button; // update
+                } else {
+                    buttonEventDict.Add(id, button); // new
+                }
             }
         }
 
