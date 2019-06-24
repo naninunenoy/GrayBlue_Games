@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 280814195}
   - component: {fileID: 280814196}
+  - component: {fileID: 5291447954414815242}
   m_Layer: 0
   m_Name: TargetSprite
   m_TagString: Untagged
@@ -79,6 +80,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &5291447954414815242
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280814194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4, y: 2.4, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1097056106870504432
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +181,7 @@ MeshCollider:
   m_GameObject: {fileID: 1097056106870504432}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
