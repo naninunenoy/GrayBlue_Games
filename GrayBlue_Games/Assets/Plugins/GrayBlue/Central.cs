@@ -10,7 +10,9 @@ namespace GrayBlue {
     [DefaultExecutionOrder(-1)]
     public class Central : MonoBehaviour, IConnectionDelegate, INotifyDelegate, IDisposable {
         private readonly IPlugin blePlugin = default;
+#if UNITY_EDITOR || UNITY_WEBGL
         private readonly WebSocket.WebSocketProxy webSocketProxy;
+#endif
         private readonly IDictionary<string, IBLEDevice> bleConnectionDict;
         private readonly IDictionary<string, IIMUEventDelegate> sensorEventDict;
         private readonly IDictionary<string, IButtonEventDelegate> buttonEventDict;

@@ -1,10 +1,11 @@
 {
-    "name": "GrayBlue",
-    "references": [
-        "GrayBlue.WebSocket"
-    ],
+    "name": "GrayBlue.WebSocket",
+    "references": [],
     "optionalUnityReferences": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor",
+        "WebGL"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
