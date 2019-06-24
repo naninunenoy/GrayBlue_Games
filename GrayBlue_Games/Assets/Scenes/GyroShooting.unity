@@ -221,7 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849bdc792ee52e5448c631bc9f21626b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {fileID: 0}
   reticleImage: {fileID: 1537994332}
   targets:
   - {fileID: 1192541494}
@@ -445,7 +444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 165}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &403503696
@@ -627,7 +626,7 @@ PrefabInstance:
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
@@ -1070,7 +1069,7 @@ PrefabInstance:
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
@@ -1480,7 +1479,7 @@ PrefabInstance:
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
@@ -1555,7 +1554,7 @@ PrefabInstance:
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 1097056106870504433, guid: 387ba7e11c488cd4696eea3542845658,
         type: 3}
@@ -1652,6 +1651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backSceneButton: {fileID: 509822408}
   firstPerson: {fileID: 1643470747}
+  gun: {fileID: 34008138}
   yawFactor: 1
   gyroReverse: {fileID: 403503696}
 --- !u!4 &2129045659

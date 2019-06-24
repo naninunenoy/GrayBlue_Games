@@ -10,6 +10,7 @@ namespace GrayBlue_Games {
 
     public class GyroShootingScene : GrayBlueGameSceneBase {
         [SerializeField] Transform firstPerson = default;
+        [SerializeField] ShootingGun gun = default;
         [Range(0.1F, 10.0F)] [SerializeField] float yawFactor;
         [SerializeField] Toggle gyroReverse = default;
         Peripheral peripheral = default;
@@ -61,6 +62,7 @@ namespace GrayBlue_Games {
                     // 真ん中ボタンでシュート
                     if (btn == ButtonType.Btn_B) {
                         Debug.Log("shot");
+                        gun?.Shot();
                     }
                 })
                 .AddTo(this);
@@ -76,8 +78,10 @@ namespace GrayBlue_Games {
         }
 
         void ResetCameraRotation() {
+            Debug.Log("reset rotation");
             cameraBaseQuaternion = Quaternion.identity;
             firstPerson.transform.rotation = Quaternion.identity;
+            gun?.ResetAllTargets();
         }
     }
 }
