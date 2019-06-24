@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace GrayBlue_Games {
     public class ShootingGun : MonoBehaviour {
+        public event Action OnFirstTargetHit;
+        public event Action OnAllTargetHit;
+
         [SerializeField] Image reticleImage = default;
         [SerializeField] GameObject[] targets = default;
 
@@ -39,6 +44,15 @@ namespace GrayBlue_Games {
                     if (hit.collider == col) {
                         col.transform.parent.gameObject.SetActive(false);
                     }
+                }
+                // hitしたターゲットの集計
+                var hitCount = colliders.Where(x => !x.transform.parent.gameObject.activeSelf).Count();
+                if (hitCount == 1) {
+                    OnFirstTargetHit.Invoke();
+                } else if (hitCount == colliders.Length) {
+                    OnAllTargetHit.Invoke();
+                } else {
+                    // Do Nothing
                 }
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using UniRx.Triggers;
 using GrayBlue;
 using GrayBlue.Rx;
 
@@ -13,9 +14,12 @@ namespace GrayBlue_Games {
         [SerializeField] ShootingGun gun = default;
         [Range(0.1F, 10.0F)] [SerializeField] float yawFactor;
         [SerializeField] Toggle gyroReverse = default;
+        [SerializeField] Text timeText = default;
         Peripheral peripheral = default;
         Quaternion cameraBaseQuaternion = Quaternion.identity;
         Dictionary<ButtonType, bool> btnOnMap = default;
+        bool isTimerStart = false;
+        float elaspedSeconds = 0.0F;
 
         protected override void Awake() {
             base.Awake();
@@ -75,6 +79,16 @@ namespace GrayBlue_Games {
                 })
                 .AddTo(this);
             peripheral.ListenEvent();
+            // 時間の計測
+            this.UpdateAsObservable()
+                .Where(x => isTimerStart)
+                .Subscribe(_ => {
+                    elaspedSeconds += Time.deltaTime;
+                    timeText.text = System.TimeSpan.FromSeconds(elaspedSeconds).ToString("mm\\:ss\\.ff");
+                })
+                .AddTo(this);
+            gun.OnFirstTargetHit += () => { isTimerStart = true; };
+            gun.OnAllTargetHit += () => { isTimerStart = false; };
         }
 
         void ResetCameraRotation() {
@@ -82,6 +96,13 @@ namespace GrayBlue_Games {
             cameraBaseQuaternion = Quaternion.identity;
             firstPerson.transform.rotation = Quaternion.identity;
             gun?.ResetAllTargets();
+            ResetTimer();
+        }
+
+        void ResetTimer() {
+            isTimerStart = false;
+            timeText.text = "00:00.00";
+            elaspedSeconds = 0.0F;
         }
     }
 }
