@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &116281958 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5129553209904488615, guid: 50446ae42c6a5224a9bac2b2ea869b46,
+    type: 3}
+  m_PrefabInstance: {fileID: 1175806598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &417263936
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backSceneButton: {fileID: 1240581743}
-  head: {fileID: 0}
+  animator: {fileID: 116281958}
 --- !u!4 &477434595
 Transform:
   m_ObjectHideFlags: 0

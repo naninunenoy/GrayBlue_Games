@@ -2,7 +2,9 @@
     "name": "GrayBlueGames",
     "references": [
         "GrayBlue",
-        "UniRx"
+        "UniRx",
+        "VRM",
+        "UniHumanoid"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

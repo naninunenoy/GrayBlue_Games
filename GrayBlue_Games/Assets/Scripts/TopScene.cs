@@ -9,6 +9,7 @@ namespace GrayBlue_Games {
         [SerializeField] M5StackImage m5StackImage = default;
         [SerializeField] Button testSceneButton = default;
         [SerializeField] Button shootingSceneButton = default;
+        [SerializeField] Button headSceneButton = default;
 
         protected override void Awake() {
             base.Awake();
@@ -22,6 +23,9 @@ namespace GrayBlue_Games {
             });
             shootingSceneButton?.onClick.AddListener(() => {
                 SceneManager.LoadScene("GyroShooting");
+            });
+            headSceneButton?.onClick.AddListener(() => {
+                SceneManager.LoadScene("HeadSync");
             });
         }
 

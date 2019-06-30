@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GyroShooting.unity
     guid: 68fac821c855b8141a74571637cfb057
+  - enabled: 1
+    path: Assets/Scenes/HeadSync.unity
+    guid: 95fc14d376dba604f8319a15b5a421cc
   m_configObjects: {}
