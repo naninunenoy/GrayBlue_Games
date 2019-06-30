@@ -19,16 +19,22 @@ namespace GrayBlue_Games {
             // scan
             grayBluePeripheral = await FindFirstGrayBlueAsync();
             // apply rotation
-            var baseQuat = Quaternion.identity;
+            var baseSensorQuat = Quaternion.identity;
+            var baseHeadQuat = head?.rotation ?? Quaternion.identity;
             grayBluePeripheral?
                 .ReactiveIMUData()
                 .Take(1)
-                .Subscribe(x => { baseQuat = Quaternion.Inverse(x.unity.quat); })
+                .Subscribe(x => { baseSensorQuat = Quaternion.Inverse(x.unity.quat); })
                 .AddTo(this);
             grayBluePeripheral?
                 .ReactiveIMUData()
                 .Skip(1)
-                .Subscribe(x => { head.localRotation = baseQuat * x.unity.quat; })
+                .Subscribe(x => {
+                    var sensorRelativeRotation = baseSensorQuat * x.unity.quat;
+                    // reverse x,y like mirror
+                    var euler = sensorRelativeRotation.eulerAngles;
+                    head.localRotation = Quaternion.Euler(-euler.x, -euler.y, euler.z);
+                })
                 .AddTo(this);
             grayBluePeripheral?.ListenEvent();
         }
